@@ -1,75 +1,16 @@
-# Nuxt Minimal Starter
+# Singa Senior Web Developer recruitment assignment
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Development date: **12.12.2025**
+Developed by: **Roman Tuomisto**
 
-## Setup
+## Implementation
 
-Make sure to install dependencies:
+Assignment was done without help of AI, using only [Nuxt](https://nuxt.com/docs/4.x/getting-started/introduction) official documentation as a reference.
 
-```bash
-# npm
-npm install
+App utilizes all of the Nuxt, recommended best practises including: Auto imports of components and composables
 
-# pnpm
-pnpm install
+## Running development server
 
-# yarn
-yarn install
+Run Nitro development server and open app preview in the browser by running:
 
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+`npm run dev -- -o`
