@@ -1,15 +1,12 @@
 <script setup lang="ts">
-import type { SingaGenresResponse } from "./@types/singaGenresResponse";
-
 const runtimeConfig = useRuntimeConfig();
-
-const { results } = (await useGenres(
-  `${runtimeConfig.public.apiBaseUri}/genres?page_size=38`
-)) as unknown as SingaGenresResponse;
-console.dir(results);
+const apiBaseUri = runtimeConfig.public.apiBaseUri;
+const { results } = await useGenres(apiBaseUri);
+const genres = results;
 </script>
 <template>
   <NuxtLayout>
     <NuxtPage />
+    <p v-for="genre in genres">{{ genre.name }}</p>
   </NuxtLayout>
 </template>
