@@ -1,8 +1,3 @@
-<script setup lang="ts">
-import AppFooter from "@/components/app-footer.vue";
-import AppHeader from "@/components/app-header.vue";
-</script>
-
 <template>
   <AppHeader />
   <main>
@@ -10,3 +5,15 @@ import AppHeader from "@/components/app-header.vue";
   </main>
   <AppFooter />
 </template>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+</style>
