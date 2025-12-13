@@ -2,6 +2,9 @@
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
+  experimental: {
+    payloadExtraction: true,
+  },
   runtimeConfig: {
     // Keys within public, will be also exposed to the client-side
     public: {

@@ -47,10 +47,7 @@ const genres = computed(
     </div>
     <div class="grid-row" v-else>
       <div class="grid-col" v-for="genre in genres" :key="genre.id">
-        <h2>{{ genre.name }}</h2>
-        <p>id {{ genre.id }}</p>
-        <p>resource_id {{ genre.resource_id }}</p>
-        <p>{{ genre.imagebank.images }}</p>
+        <GenreCard :genre="genre" />
       </div>
     </div>
   </section>
