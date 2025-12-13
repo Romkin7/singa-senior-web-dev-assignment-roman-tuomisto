@@ -4,7 +4,7 @@ import type { SingaGenresResponse } from "~/@types/singaGenresResponse";
 const runtimeConfig = useRuntimeConfig();
 const apiBaseUri = runtimeConfig.public.apiBaseUri;
 
-const { data, pending, error, refresh } = await useGenres(apiBaseUri);
+const { data, pending, error } = await useGenres(apiBaseUri);
 
 // save results as genres, uses computed, to update view and data based using
 const genres = computed(
