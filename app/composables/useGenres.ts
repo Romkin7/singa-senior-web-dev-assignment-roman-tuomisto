@@ -34,7 +34,6 @@ export const useGenres = (
   const queryStringValue = computed(() =>
     typeof queryString === "string" ? queryString : queryString?.value || ""
   );
-  console.log(queryStringValue);
 
   return useAsyncData(
     "singa-genres",

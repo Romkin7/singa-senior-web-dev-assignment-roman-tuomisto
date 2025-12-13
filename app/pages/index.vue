@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SingaGenresResponse } from "~/@types/singaGenresResponse";
+import type { SingaGenresResponse } from "@/@types/singaGenresResponse";
 
 const queryString = ref("");
 
