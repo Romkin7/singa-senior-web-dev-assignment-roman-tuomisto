@@ -1,19 +1,33 @@
 <script setup lang="ts">
-import type { SingaGenresResponse } from "~/@types/singaGenresResponse";
+import type { SingaGenresResponse } from "@/@types/singaGenresResponse";
+
+const queryString = ref("");
 
 const runtimeConfig = useRuntimeConfig();
 const apiBaseUri = runtimeConfig.public.apiBaseUri;
 
-const { data, pending, error } = await useGenres(apiBaseUri);
+const { data, pending, error, refresh } = await useGenres(
+  apiBaseUri,
+  queryString
+);
 
 // save results as genres, uses computed, to update view and data based using
 const genres = computed(
   () => (data.value as SingaGenresResponse)?.results || []
 );
 </script>
+
 <template>
   <section>
     <h1>Genres</h1>
+    <div class="grid-row">
+      <div class="grid-col-12">
+        <SearchForm
+          v-model:query-string="queryString"
+          @search-genres="refresh"
+        />
+      </div>
+    </div>
     <div class="grid-row" v-if="pending">
       <div class="grid-col">
         <h2>Loading</h2>
@@ -51,5 +65,9 @@ const genres = computed(
 
 .grid-col {
   flex-basis: 32%;
+}
+
+.grid-col-12 {
+  flex-basis: 100%;
 }
 </style>
