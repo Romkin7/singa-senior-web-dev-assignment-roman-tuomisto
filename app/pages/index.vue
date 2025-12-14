@@ -15,6 +15,12 @@ const { data, pending, error, refresh } = await useGenres(
 const genres = computed(
   () => (data.value as SingaGenresResponse)?.results || []
 );
+// Set Seo title and description
+useSeoMeta({
+  title: "Singa Genres - Home",
+  description: "Browse and search genres in the Singa Genres App.",
+  robots: "index, follow", // Allow indexing for home page
+});
 </script>
 
 <template>
@@ -47,9 +53,9 @@ const genres = computed(
     </div>
     <div class="grid-row" v-else>
       <div class="grid-col" v-for="genre in genres" :key="genre.id">
-        <a :href="`/${genre.id}`" class="genre-card-link">
+        <NuxtLink :to="`/${genre.id}`" class="genre-card-link">
           <GenreCard :genre="genre" />
-        </a>
+        </NuxtLink>
       </div>
     </div>
   </section>

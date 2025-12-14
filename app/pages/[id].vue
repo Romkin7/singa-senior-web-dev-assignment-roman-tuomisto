@@ -5,9 +5,24 @@ const runtimeConfig = useRuntimeConfig();
 const apiBaseUri = runtimeConfig.public.apiBaseUri;
 
 const { data, pending, error } = await useGenres(apiBaseUri);
+if (error && !data.value) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: "Resqource not found!",
+    data: {
+      myCustomField: true,
+    },
+  });
+}
 
 // save results as genres, uses computed, to update view and data based using
 const genre = computed(() => (data.value as SingaGenre) || null);
+// Set Seo title and description
+useSeoMeta({
+  title: `Singa - Genre ${genre.value.name} deatails`,
+  description: `Details about the genre ${genre.value.name}`,
+  robots: "index, follow", // Allow indexing for valid genre pages
+});
 </script>
 <template>
   <section>
@@ -30,12 +45,7 @@ const genre = computed(() => (data.value as SingaGenre) || null);
     </div>
     <div class="grid-row" v-else>
       <div class="grid-col">
-        <h1>{{ genre.name }}</h1>
-        <p>id {{ genre.id }}</p>
-        <p>resource_id {{ genre.resource_id }}</p>
-        <div v-if="genre.imagebank">
-          <h2>Images {{ genre.imagebank.title }}</h2>
-        </div>
+        <GenreCard :genre="genre" />
       </div>
     </div>
   </section>

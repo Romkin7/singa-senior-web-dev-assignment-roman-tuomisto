@@ -11,5 +11,6 @@ h1 {
 }
 main {
   padding: 1rem;
+  min-height: 74vh;
 }
 </style>
