@@ -17,6 +17,12 @@ if (error && !data.value) {
 
 // save results as genres, uses computed, to update view and data based using
 const genre = computed(() => (data.value as SingaGenre) || null);
+// Set Seo title and description
+useSeoMeta({
+  title: `Singa - Genre ${genre.value.name} deatails`,
+  description: `Details about the genre ${genre.value.name}`,
+  robots: "index, follow", // Allow indexing for valid genre pages
+});
 </script>
 <template>
   <section>

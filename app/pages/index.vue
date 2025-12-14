@@ -15,6 +15,12 @@ const { data, pending, error, refresh } = await useGenres(
 const genres = computed(
   () => (data.value as SingaGenresResponse)?.results || []
 );
+// Set Seo title and description
+useSeoMeta({
+  title: "Singa Genres - Home",
+  description: "Browse and search genres in the Singa Genres App.",
+  robots: "index, follow", // Allow indexing for home page
+});
 </script>
 
 <template>

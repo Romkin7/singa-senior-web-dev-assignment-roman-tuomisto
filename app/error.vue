@@ -2,6 +2,12 @@
 import type { NuxtError } from "#app";
 
 const props = defineProps<{ error: NuxtError }>();
+// Set Seo title and description
+useSeoMeta({
+  title: `Error ${props.error.statusCode} - ${props.error.message}`,
+  description: `An error occurred: ${props.error.message}`,
+  robots: "noindex, nofollow", // Don't index 404 pages
+});
 </script>
 
 <template>

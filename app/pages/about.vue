@@ -1,3 +1,12 @@
+<script setup lang="ts">
+// Set Seo title and description
+useSeoMeta({
+  title: "Singa - About",
+  description:
+    "Learn more about the Singa Genres App, built with Nuxt 3 and TypeScript.",
+  robots: "index, follow", // Allow indexing for about page
+});
+</script>
 <template>
   <main>
     <h1>About This App</h1>
