@@ -15,7 +15,20 @@ Nuxt `/app` folder structure is used along with Vue and nuxt built in components
 
 Page structure is done as follows: `pages` folder contains all root level pages like landing page and about page, `pages/genres` includes genres listing page and `[id].vue` that displays single genre. Assignment required genres listing page to be under `/` route instead of `/genres`, but it seemed like antipattern to me, as single genre would be under `/genres/:id`.
 
+My custom composable `useGenres` has internally dynamic unique key, that is used to cache response data. For initial render of `/genres`, when all genres are fetched and displayed `singa-genres-${pageSize}` key is used, when search is used `singa-genres-${pageSize}-${queryStringValue.value}` key is used which also includes actual query string as part of the key and when single genre is fetched `singa-genres-${genreId.value}` key is used to store response data under these 3 types of unique keys in cache and can be reused from cache for 15 minutes, before data is expired and new api request is made.
+
+In order to store data in cache under unique keys, nuxt.config.ts configuration had to be modified `experimental: { payloadExtraction: true,},` to include experimental features.
+
+Data is cached under `nuxtApp.payload.data`, which is possible with experimental features enbabled for nuxt.
+
 I decided to include simple `useFetch` built in composable, to send get requests to `/api/ping` endpoint of Nitro server, to check server health. And response ping set to pong is displayed under footer on App.vue level component. This I believe is extra thing, to demonstrate, that ping pong health check is working as expected.
+
+### Time spent on each section
+
+- Part 1: Data fetching: using useAsyncData - **9 Hours**
+- Part 2: Pages: genre list and detail pages - **8 Hours**
+- Part 3: Rendering Modes: Static about page - **1 Hour**
+- Part 4: Nitro: Server ping pong endpoint - **1 Hour**
 
 ### Usage of AI
 
