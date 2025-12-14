@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import type { NuxtError } from "#app";
-
-const props = defineProps<{ error: NuxtError }>();
-// Set Seo title and description
-useSeoMeta({
-  title: `Error ${props.error.statusCode} - ${props.error.message}`,
-  description: `An error occurred: ${props.error.message}`,
-  robots: "noindex, nofollow", // Don't index 404 pages
+const props = defineProps({
+  error: Object,
 });
+
+const handleError = () => clearError({ redirect: "/" });
 </script>
 
 <template>
   <main>
-    <h1>{{ error.statusCode }}</h1>
-    <p>{{ error.message }}</p>
-    <NuxtLink to="/">Go back home</NuxtLink>
+    <h1 v-if="error?.statusCode === 404">Resource or page not found!</h1>
+    <h1 v-else>An error occurred</h1>
+
+    <p>{{ error?.message }}</p>
+    <p>Status: {{ error?.statusCode }}</p>
+
+    <button @click="handleError">Go Home</button>
   </main>
 </template>
 
@@ -37,13 +37,16 @@ p {
   margin-bottom: 2rem;
   color: darkslategray;
 }
-a {
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
   font-size: 1.5rem;
   color: steelblue;
   text-decoration: underline;
   transition: color ease-in 150ms;
 }
-a:hover {
+button:hover {
   color: darkblue;
 }
 </style>

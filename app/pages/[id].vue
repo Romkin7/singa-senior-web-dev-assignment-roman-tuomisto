@@ -8,10 +8,7 @@ const { data, pending, error } = await useGenres(apiBaseUri);
 if (error && !data.value) {
   throw createError({
     statusCode: 404,
-    statusMessage: "Resqource not found!",
-    data: {
-      myCustomField: true,
-    },
+    statusMessage: `Resource with id ${useRoute().params.id} not found!`,
   });
 }
 
