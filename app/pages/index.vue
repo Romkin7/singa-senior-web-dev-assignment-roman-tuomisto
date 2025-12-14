@@ -1,8 +1,8 @@
 <script setup lang="ts">
 // SEO metadata for the homepage
-definePageMeta({
+useSeoMeta({
   title: "Singa - Home",
-  ddescription:
+  description:
     "Welcome to Singa, your gateway to exploring diverse music genres.",
   robots: "index, follow",
 });
