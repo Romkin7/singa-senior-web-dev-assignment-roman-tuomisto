@@ -1,11 +1,20 @@
 <script setup lang="ts">
 import type { SingaGenresResponse } from "@/@types/singaGenresResponse";
-const queryString = ref("");
+// useRoute is used to read route parameters
+const route = useRoute();
+// useRouter is used to set route parameters
+const router = useRouter();
+const queryString = computed({
+  get: () => route.query.name || "",
+  set: (value: string) => {
+    router.push({ query: { ...route.query, name: value || undefined } });
+  },
+});
 
 const runtimeConfig = useRuntimeConfig();
 const apiBaseUri = runtimeConfig.public.apiBaseUri;
 
-const { data, pending, refresh } = await useGenres(apiBaseUri, queryString);
+const { data, pending, refresh } = await useGenres(apiBaseUri);
 
 // save results as genres, uses computed, to update view and data based using
 const genres = computed(

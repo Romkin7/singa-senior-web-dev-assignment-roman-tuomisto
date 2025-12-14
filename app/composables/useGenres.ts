@@ -1,13 +1,5 @@
 import type { AsyncData, NuxtError } from "#app";
 
-function stringifyQueryParams(pageSize: number, name: string | undefined) {
-  let queryString = `page_size=${pageSize}`;
-  if (name) {
-    queryString = `${queryString}&name=${name}`;
-  }
-  return queryString;
-}
-
 /**
  * useGenres composable that, in apiBaseUri and pageSize as optional parameter,
  * that defaults to 38 items,
@@ -20,39 +12,29 @@ function stringifyQueryParams(pageSize: number, name: string | undefined) {
  * ApiBseUri is not hardcoded, because it can differ based on the environment,
  * thus it's better to configure it in nuxt.config.ts.
  * @param {string} apiBaseUri
- * @param {Ref<string>} queryString
- * @param {number|undefined} pageSize
  * @returns {PromiseAsyncData<unknown, NuxtError<unknown> | undefined>}
  */
 export const useGenres = (
-  apiBaseUri: string,
-  queryString?: Ref<string> | string,
-  pageSize: number = 38
+  apiBaseUri: string
 ): AsyncData<unknown, NuxtError<unknown> | undefined> => {
-  // Get value of queryString using computed
-  const queryStringValue = computed(() =>
-    typeof queryString === "string" ? queryString : queryString?.value || ""
-  );
-
   const route = useRoute();
   const genreId = computed(() => route.params.id);
+  const query = computed(() => route.query);
+  const stringifiedQuery = computed(() => JSON.stringify(query.value));
 
   // define unique key to be used with cache, to eliminate cache collisions
   const uniqueKey = computed(() =>
     genreId.value
       ? `singa-genres-${genreId.value}`
-      : queryStringValue.value
-      ? `singa-genres-${pageSize}-${queryStringValue.value}`
-      : `singa-genres-${pageSize}`
+      : query?.value.name
+      ? `singa-genres-${query.value.page_size}-${query.value.name}`
+      : `singa-genres-${query.value.page_size}`
   );
 
   const url = computed(() =>
     genreId.value
       ? `${apiBaseUri}/genres/${genreId.value}`
-      : `${apiBaseUri}/genres?${stringifyQueryParams(
-          pageSize,
-          queryStringValue.value
-        )}`
+      : `${apiBaseUri}/genres`
   );
 
   return useAsyncData(
@@ -60,6 +42,7 @@ export const useGenres = (
     async (_nuxtApp, { signal }) => {
       try {
         return $fetch(url.value, {
+          query: query.value,
           signal,
         });
       } catch (error: any) {
@@ -80,7 +63,7 @@ export const useGenres = (
     },
     {
       // Watch for the updates on queryStringValue to automatically re-fetch results.
-      watch: [queryStringValue],
+      watch: [stringifiedQuery],
       getCachedData: (key, nuxtApp) => {
         // Get default cached data from Nuxt payload
         const data = nuxtApp.isHydrating

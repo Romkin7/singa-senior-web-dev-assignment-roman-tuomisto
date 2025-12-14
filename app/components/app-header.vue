@@ -2,7 +2,7 @@
   <header>
     <nav>
       <NuxtLink to="/"><h1 class="brand">Singa</h1></NuxtLink>
-      <NuxtLink to="/genres">Genres</NuxtLink>
+      <NuxtLink to="/genres?page_size=38">Genres</NuxtLink>
       <NuxtLink to="/about">About</NuxtLink>
     </nav>
   </header>

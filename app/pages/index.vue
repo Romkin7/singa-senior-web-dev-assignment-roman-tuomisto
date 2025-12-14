@@ -11,7 +11,7 @@ useSeoMeta({
   <section>
     <h1>Welcome to Singa</h1>
     <p>Your gateway to exploring diverse music genres.</p>
-    <NuxtLink to="/genres">Browse Genres</NuxtLink>
+    <NuxtLink to="/genres?page_size=38">Browse Genres</NuxtLink>
   </section>
 </template>
 
