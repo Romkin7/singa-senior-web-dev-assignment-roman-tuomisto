@@ -5,6 +5,15 @@ const runtimeConfig = useRuntimeConfig();
 const apiBaseUri = runtimeConfig.public.apiBaseUri;
 
 const { data, pending, error } = await useGenres(apiBaseUri);
+if (error && !data.value) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: "Resqource not found!",
+    data: {
+      myCustomField: true,
+    },
+  });
+}
 
 // save results as genres, uses computed, to update view and data based using
 const genre = computed(() => (data.value as SingaGenre) || null);
