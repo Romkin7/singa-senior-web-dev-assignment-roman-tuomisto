@@ -39,13 +39,6 @@ useSeoMeta({
         <h2>Loading</h2>
       </div>
     </div>
-    <div class="grid-row" v-else-if="error">
-      <div class="grid-col">
-        <h2>Error</h2>
-        <p>Status: {{ error.statusCode }}</p>
-        <p>{{ error.message }}</p>
-      </div>
-    </div>
     <div class="grid-row" v-else-if="genres.length === 0">
       <div class="grid-col">
         <h2>No Genres to display</h2>
