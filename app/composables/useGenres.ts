@@ -57,10 +57,27 @@ export const useGenres = (
 
   return useAsyncData(
     () => uniqueKey.value,
-    (_nuxtApp, { signal }) =>
-      $fetch(url.value, {
-        signal,
-      }),
+    async (_nuxtApp, { signal }) => {
+      try {
+        return $fetch(url.value, {
+          signal,
+        });
+      } catch (error: any) {
+        // Centralized error handling
+        if (error.response?.status === 404) {
+          throw createError({
+            statusCode: 404,
+            statusMessage: `No genre found with ID ${genreId}`,
+          });
+        }
+
+        const statusCode = error.value.statusCode || 500;
+        throw createError({
+          statusCode,
+          statusMessage: error.value.message || "Server Error",
+        });
+      }
+    },
     {
       // Watch for the updates on queryStringValue to automatically re-fetch results.
       watch: [queryStringValue],
