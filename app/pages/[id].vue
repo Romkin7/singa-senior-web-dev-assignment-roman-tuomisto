@@ -1,3 +1,42 @@
+<script setup lang="ts">
+import type { SingaGenre } from "@/@types/singaGenre";
+
+const runtimeConfig = useRuntimeConfig();
+const apiBaseUri = runtimeConfig.public.apiBaseUri;
+
+const { data, pending, error } = await useGenres(apiBaseUri);
+
+// save results as genres, uses computed, to update view and data based using
+const genre = computed(() => (data.value as SingaGenre) || null);
+</script>
 <template>
-  <h1>{{ $route.params.id }}</h1>
+  <section>
+    <div class="grid-row" v-if="pending">
+      <div class="grid-col">
+        <h2>Loading</h2>
+      </div>
+    </div>
+    <div class="grid-row" v-else-if="error">
+      <div class="grid-col">
+        <h2>Error</h2>
+        <p>Status: {{ error.statusCode }}</p>
+        <p>{{ error.message }}</p>
+      </div>
+    </div>
+    <div class="grid-row" v-else-if="!genre">
+      <div class="grid-col">
+        <h2>No Genres to display</h2>
+      </div>
+    </div>
+    <div class="grid-row" v-else>
+      <div class="grid-col">
+        <h1>{{ genre.name }}</h1>
+        <p>id {{ genre.id }}</p>
+        <p>resource_id {{ genre.resource_id }}</p>
+        <div v-if="genre.imagebank">
+          <h2>Images {{ genre.imagebank.title }}</h2>
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
