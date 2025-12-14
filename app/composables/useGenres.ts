@@ -34,25 +34,33 @@ export const useGenres = (
     typeof queryString === "string" ? queryString : queryString?.value || ""
   );
 
+  const route = useRoute();
+  const genreId = computed(() => route.params.id);
+
   // define unique key to be used with cache, to eliminate cache collisions
   const uniqueKey = computed(() =>
-    queryStringValue.value
+    genreId.value
+      ? `singa-genres-${genreId.value}`
+      : queryStringValue.value
       ? `singa-genres-${pageSize}-${queryStringValue.value}`
       : `singa-genres-${pageSize}`
   );
 
-  return useAsyncData(
-    () => uniqueKey.value,
-    (nuxtApp, { signal }) =>
-      $fetch(
-        `${apiBaseUri}/genres?${stringifyQueryParams(
+  const url = computed(() =>
+    genreId.value
+      ? `${apiBaseUri}/genres/${genreId.value}`
+      : `${apiBaseUri}/genres?${stringifyQueryParams(
           pageSize,
           queryStringValue.value
-        )}`,
-        {
-          signal,
-        }
-      ),
+        )}`
+  );
+
+  return useAsyncData(
+    () => uniqueKey.value,
+    (_nuxtApp, { signal }) =>
+      $fetch(url.value, {
+        signal,
+      }),
     {
       // Watch for the updates on queryStringValue to automatically re-fetch results.
       watch: [queryStringValue],
