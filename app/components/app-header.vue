@@ -1,8 +1,8 @@
 <template>
   <header>
     <nav>
-      <h1 class="brand">Singa</h1>
-      <NuxtLink to="/">Home</NuxtLink>
+      <NuxtLink to="/"><h1 class="brand">Singa</h1></NuxtLink>
+      <NuxtLink to="/genres">Genres</NuxtLink>
       <NuxtLink to="/about">About</NuxtLink>
       <NuxtLink to="/non-existing-page">Non-existing Page</NuxtLink>
     </nav>
