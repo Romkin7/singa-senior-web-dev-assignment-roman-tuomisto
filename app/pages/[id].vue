@@ -39,12 +39,7 @@ const genre = computed(() => (data.value as SingaGenre) || null);
     </div>
     <div class="grid-row" v-else>
       <div class="grid-col">
-        <h1>{{ genre.name }}</h1>
-        <p>id {{ genre.id }}</p>
-        <p>resource_id {{ genre.resource_id }}</p>
-        <div v-if="genre.imagebank">
-          <h2>Images {{ genre.imagebank.title }}</h2>
-        </div>
+        <GenreCard :genre="genre" />
       </div>
     </div>
   </section>
