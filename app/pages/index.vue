@@ -1,3 +1,12 @@
+<script setup lang="ts">
+// SEO metadata for the homepage
+definePageMeta({
+  title: "Singa - Home",
+  ddescription:
+    "Welcome to Singa, your gateway to exploring diverse music genres.",
+  robots: "index, follow",
+});
+</script>
 <template>
   <section>
     <h1>Welcome to Singa</h1>
