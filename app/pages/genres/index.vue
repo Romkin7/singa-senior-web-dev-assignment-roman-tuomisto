@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { SingaGenresResponse } from "@/@types/singaGenresResponse";
-
 const queryString = ref("");
 
 const runtimeConfig = useRuntimeConfig();
@@ -26,7 +25,7 @@ useSeoMeta({
     <div class="grid-row">
       <div class="grid-col-12">
         <SearchForm
-          v-model:query-string="queryString"
+          v-model:query-string.update_after_two_characters="queryString"
           @search-genres="refresh"
         />
       </div>

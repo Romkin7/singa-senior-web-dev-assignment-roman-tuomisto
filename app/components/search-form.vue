@@ -1,5 +1,12 @@
 <script setup lang="ts">
-const queryString = defineModel<string>("query-string");
+const [queryString, modifiers] = defineModel("query-string", {
+  set(value: string) {
+    if (modifiers.update_after_two_characters) {
+      value = value.length >= 2 ? value : "";
+    }
+    return value;
+  },
+});
 const emit = defineEmits<{
   "search-genres": [];
 }>();
