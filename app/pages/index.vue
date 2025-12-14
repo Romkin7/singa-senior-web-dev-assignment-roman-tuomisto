@@ -47,7 +47,9 @@ const genres = computed(
     </div>
     <div class="grid-row" v-else>
       <div class="grid-col" v-for="genre in genres" :key="genre.id">
-        <GenreCard :genre="genre" />
+        <a :href="`/${genre.id}`" class="genre-card-link">
+          <GenreCard :genre="genre" />
+        </a>
       </div>
     </div>
   </section>
@@ -66,5 +68,10 @@ const genres = computed(
 
 .grid-col-12 {
   flex-basis: 100%;
+}
+
+.genre-card-link {
+  text-decoration: none;
+  color: inherit;
 }
 </style>
