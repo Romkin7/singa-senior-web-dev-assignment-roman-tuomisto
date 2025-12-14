@@ -47,9 +47,9 @@ const genres = computed(
     </div>
     <div class="grid-row" v-else>
       <div class="grid-col" v-for="genre in genres" :key="genre.id">
-        <a :href="`/${genre.id}`" class="genre-card-link">
+        <NuxtLink :to="`/${genre.id}`" class="genre-card-link">
           <GenreCard :genre="genre" />
-        </a>
+        </NuxtLink>
       </div>
     </div>
   </section>
