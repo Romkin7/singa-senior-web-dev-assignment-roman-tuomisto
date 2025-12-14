@@ -17,6 +17,16 @@ Page structure is done as follows: `pages` folder contains all root level pages 
 
 I decided to include simple `useFetch` built in composable, to send get requests to `/api/ping` endpoint of Nitro server, to check server health. And response ping set to pong is displayed under footer on App.vue level component. This I believe is extra thing, to demonstrate, that ping pong health check is working as expected.
 
+### Usage of AI
+
+I did use AI in several places, related to error handling practises and data fetching issues.
+
+- `What are the best built in parictices of error handling in Nuxt?`
+- `Why does <NuxtLink to="/non-existing-page">Non-existing Page</NuxtLink> link not result in error.vue page with status 404?`
+- `What are the main Nuxt Lifecycle in how the data is fetched and used in the pages?`
+- `How to handle errors centrally in one place like api errors and 404 errors?`
+- `How cache works with expiry in Nuxt? Are there any best practises?`
+
 ## Running development server
 
 Install dependencies by running:
