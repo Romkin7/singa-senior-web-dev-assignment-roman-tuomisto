@@ -34,26 +34,33 @@ export const useGenres = (
     typeof queryString === "string" ? queryString : queryString?.value || ""
   );
 
+  const route = useRoute();
+  const genreId = computed(() => route.params.id);
+
   // define unique key to be used with cache, to eliminate cache collisions
   const uniqueKey = computed(() =>
-    queryStringValue.value
+    genreId.value
+      ? `singa-genres-${genreId.value}`
+      : queryStringValue.value
       ? `singa-genres-${pageSize}-${queryStringValue.value}`
       : `singa-genres-${pageSize}`
   );
 
-  console.log(uniqueKey.value);
+  const url = computed(() =>
+    genreId.value
+      ? `${apiBaseUri}/genres/${genreId.value}`
+      : `${apiBaseUri}/genres?${stringifyQueryParams(
+          pageSize,
+          queryStringValue.value
+        )}`
+  );
+
   return useAsyncData(
     () => uniqueKey.value,
     (_nuxtApp, { signal }) =>
-      $fetch(
-        `${apiBaseUri}/genres?${stringifyQueryParams(
-          pageSize,
-          queryStringValue.value
-        )}`,
-        {
-          signal,
-        }
-      ),
+      $fetch(url.value, {
+        signal,
+      }),
     {
       // Watch for the updates on queryStringValue to automatically re-fetch results.
       watch: [queryStringValue],
@@ -71,7 +78,7 @@ export const useGenres = (
         const timeStampKey = `${key}-timestamp`;
         const timestamp = nuxtApp.payload.data[timeStampKey];
 
-        // If no timestamp, data is fresh, use it
+        // If no timestamp, use data
         if (!timestamp) {
           return data;
         }
@@ -79,14 +86,17 @@ export const useGenres = (
         const expiryTime = 1000 * 60 * 15; // fifteen minutes
         const isExpired = Date.now() - timestamp > expiryTime;
 
-        // If expired, return undefined to trigger new fetch
+        // if isExpred is true, return undefined.
+        // Each time undefined is returned, it triggers new fetch.
         if (isExpired) return undefined;
 
         return data;
       },
       transform: (data) => {
-        const nuxtApp = useNuxtApp();
-        nuxtApp.payload.data[`${uniqueKey.value}-timestamp`] = Date.now();
+        if (tryUseNuxtApp()) {
+          const nuxtApp = useNuxtApp();
+          nuxtApp.payload.data[`${uniqueKey.value}-timestamp`] = Date.now();
+        }
         return data;
       },
     }

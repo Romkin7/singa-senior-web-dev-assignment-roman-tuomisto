@@ -9,7 +9,6 @@ defineProps<{
   <article>
     <h2>{{ genre.name }}</h2>
     <p>id {{ genre.id }}</p>
-    <p>resource_id {{ genre.resource_id }}</p>
     <p>{{ genre.imagebank.images }}</p>
   </article>
 </template>
