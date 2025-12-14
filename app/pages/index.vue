@@ -60,14 +60,20 @@ const genres = computed(
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  justify-content: space-around;
 }
 
 .grid-col {
   flex-basis: 32%;
+  margin-bottom: 0.5rem;
 }
 
 .grid-col-12 {
   flex-basis: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+  align-items: center;
 }
 
 .genre-card-link {
