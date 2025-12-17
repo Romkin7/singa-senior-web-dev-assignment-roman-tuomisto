@@ -11,4 +11,9 @@ export default defineNuxtConfig({
       apiBaseUri: "https://api.singa.com/v1.4",
     },
   },
+  nitro: {
+    prerender: {
+      routes: ["/about"],
+    },
+  },
 });
